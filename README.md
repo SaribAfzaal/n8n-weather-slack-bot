@@ -95,12 +95,6 @@ No API keys, tokens, or webhook URLs are included in this repository. The export
 
 ---
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 ## Author
 
 Built by Sarib Afzaal as a portfolio project exploring workflow automation with n8n.

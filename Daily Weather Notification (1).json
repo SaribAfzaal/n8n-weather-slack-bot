@@ -44,7 +44,7 @@
             {
               "id": "6e1a5058-0a7c-4b31-bdc7-9988b739911e",
               "name": "message",
-              "value": "=={{\n\"🌤️ Weather Update - Lahore\\n\\n\" +\n\"🌡️ Temperature: \" + $json.current.temperature_2m + \"°C\\n\" +\n\"💧 Humidity: \" + $json.current.relative_humidity_2m + \"%\\n\" +\n\"🌬️ Wind Speed: \" + $json.current.wind_speed_10m + \" km/h\"\n}}",
+              "value": "=={{\n\" Weather Update - Lahore\\n\\n\" +\n\" Temperature: \" + $json.current.temperature_2m + \"°C\\n\" +\n\"Humidity: \" + $json.current.relative_humidity_2m + \"%\\n\" +\n\" Wind Speed: \" + $json.current.wind_speed_10m + \" km/h\"\n}}",
               "type": "string"
             }
           ]
@@ -68,8 +68,8 @@
         "bodyParameters": {
           "parameters": [
             {
-              "name": "text",
-              "value": "=={{ $json.message }}"
+              "name": "=text",
+              "value": "={{ $json.response }}"
             }
           ]
         },
@@ -78,14 +78,45 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        560,
-        128
+        768,
+        112
       ],
       "id": "f4b485ac-dffd-439b-b2e2-a84216a4e301",
       "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendBody": true,
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "{\n  \"model\": \"phi3\",\n  \"prompt\": \"Rewrite this weather update as one short, friendly sentence, casual tone, under 20 words: {{ $json.message.replace(/\\n/g, ' ') }}\",\n  \"stream\": false\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        576,
+        128
+      ],
+      "id": "5c8c5f47-5d77-4c38-8e81-45e76ae951f5",
+      "name": "HTTP Request2"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Edit Fields": [
+      {
+        "json": {
+          "message": "= Weather Update - Lahore\n\n Temperature: 34.5°C\n Humidity: 64%\n Wind Speed: 3.7 km/h"
+        }
+      }
+    ]
+  },
   "connections": {
     "HTTP Request": {
       "main": [
@@ -102,7 +133,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request1",
+            "node": "HTTP Request2",
             "type": "main",
             "index": 0
           }
@@ -119,14 +150,26 @@
           }
         ]
       ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "availableInMCP": false
   },
-  "versionId": "1f69b094-0e43-4775-94b7-811d9acc02ea",
+  "versionId": "44b95963-13e9-49b1-b8ef-4f97ca5a807c",
   "meta": {
     "instanceId": "e627ba3cf413f5c8fbbcb0c34adbe72399de282a282eb839e23356d673f567eb"
   },

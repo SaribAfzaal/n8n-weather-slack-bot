@@ -44,7 +44,7 @@
             {
               "id": "6e1a5058-0a7c-4b31-bdc7-9988b739911e",
               "name": "message",
-              "value": "=={{\n\" Weather Update - Lahore\\n\\n\" +\n\" Temperature: \" + $json.current.temperature_2m + \"°C\\n\" +\n\"Humidity: \" + $json.current.relative_humidity_2m + \"%\\n\" +\n\" Wind Speed: \" + $json.current.wind_speed_10m + \" km/h\"\n}}",
+              "value": "=={{\n\" Weather Update - Lahore\\n\\n\" +\n\"🌡️ Temperature: \" + $json.current.temperature_2m + \"°C\\n\" +\n\" Humidity: \" + $json.current.relative_humidity_2m + \"%\\n\" +\n\" Wind Speed: \" + $json.current.wind_speed_10m + \" km/h\"\n}}",
               "type": "string"
             }
           ]
@@ -95,7 +95,7 @@
             {}
           ]
         },
-        "jsonBody": "{\n  \"model\": \"phi3\",\n  \"prompt\": \"Rewrite this weather update as one short, friendly sentence, casual tone, under 20 words: {{ $json.message.replace(/\\n/g, ' ') }}\",\n  \"stream\": false\n}",
+        "jsonBody": "={\n  \"model\": \"phi3\",\n  \"prompt\": \"You are a weather assistant. Based on this exact data: {{ $json.message.replace(/\\n/g, ' ') }} — write ONLY one short, friendly sentence describing the weather. Do not include any notes, explanations, placeholders, or meta-commentary. Output only the sentence.\",\n  \"stream\": false\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -169,7 +169,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "44b95963-13e9-49b1-b8ef-4f97ca5a807c",
+  "versionId": "c7074d8d-db19-4e0a-808b-d36222ec57be",
   "meta": {
     "instanceId": "e627ba3cf413f5c8fbbcb0c34adbe72399de282a282eb839e23356d673f567eb"
   },
